@@ -19,7 +19,7 @@ def search(root, indent=0):
             file_extension = get_extension(root + file)
             if file_extension == 'py' and 'venv' not in root and 'site-package' not in root and 'Anaconda' not in root and 'corepython' not in root:
                 print((indent + 2) * "-", root + file)
-                result = parse_code(file_path=root+file)
+                result = parse_code(file_path=root + file)
                 if len(result) > 0:
                     print((indent + 3) * "-", result)
 
@@ -42,4 +42,6 @@ def re_test(text: str):
             print("not found")
     except Exception as e:
         print("not found", e)
+
+
 search('X:/Python/')
