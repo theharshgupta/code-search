@@ -19,15 +19,10 @@ def parse_code(file_path: str):
                 if 'def' in tokens[index_token - 2].line:
                     line_function = tokens[index_token - 2].line
                     line_docstring = token.line
+                    data["filename"] = file_path
                     data["function"] = line_function.replace('\n', '').replace('def', '').replace(':', '').strip()
                     data["docstring"] = line_docstring.replace('\n', '').replace('\"\"\"', '').replace('  ', ' ').strip()
                     result.append(data)
-
-                # if 'def' not in token[index_token-2].line:
-                #     print("String is not a docstring, this is not inside a function")
-                # else:
-                #     print("STRING\n",token.line)
-                # print(tokenize.tok_name[token.exact_type], repr(token.string))
     return result
 
 

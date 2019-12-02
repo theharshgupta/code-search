@@ -8,26 +8,48 @@ def get_extension(file_name: str):
     return file_name.split('.')[-1]
 
 
-def search(root, indent=0):
-    # print(indent*"-", f"Inside the folder: {root}")
+data_all = []
+
+
+def save_to_json(json_data: dict, json_filename: str):
+    """
+    This is a function to save a dict or json to a .json file
+    :param json_data: the Python dictionary or json data
+    :param json_filename: json file to which you want to save this
+    :return: None
+    """
+    import json
+    with open(json_filename, 'w') as f:
+        json.dump(json_data, f, ensure_ascii=False, indent=4)
+
+
+def search(root, indent=0, flags=None, extension='py'):
+    """
+    Hello World!
+    :param root: starting directory
+    :param indent: for printing in console
+    :param flags: words to ignore in the path while indexing
+    :param extension: file extension to index
+    :return: None
+    """
+    if root[-1] is not '/':
+        root = root + '/'
+
+    # print(indent*"_", f"Inside the folder: {root}")
     if len(os.listdir(root)) == 0:
         return "End of indexing reached!"
     for file in os.listdir(root):
         try:
             if os.path.isdir(root + file):
-                search(root + file + '/', indent + 2)
+                search(root + file + '/', indent + 2, flags, extension)
             file_extension = get_extension(root + file)
-            if file_extension == 'py' and 'venv' not in root and 'site-package' not in root and 'Anaconda' not in root and 'corepython' not in root:
-                print((indent + 2) * "-", root + file)
+            if all([x not in root for x in flags] + [extension == file_extension]):
+                print((indent + 2) * "_", root + file)
                 result = parse_code(file_path=root + file)
                 if len(result) > 0:
-                    print((indent + 3) * "-", result)
+                    # print((indent + 3) * "_", result)
+                    data_all.append(result)
 
-                # file_contents_lines = open_file.readlines()
-                # for line_index, file_line in enumerate(file_contents_lines):
-                # if '\"\"\"' in file_line:
-                # print((indent+4)*"-", file_contents_lines[line_index+1])
-            # print((indent+2)*"-", f"The extension of the above file is: {file_extension}")
         except PermissionError as permission_denied:
             print(f"Not allowed to open the following file {root + file}\n{permission_denied}")
             continue
@@ -44,4 +66,8 @@ def re_test(text: str):
         print("not found", e)
 
 
-search('/Users/harsh/Desktop/coding/')
+if __name__ == '__main__':
+    search(root='/Users/harsh/Desktop/work/61a', flags=['corepython', 'Anaconda', 'site-package', 'venv', 'google-cloud-sdk'])
+    d = [y for x in data_all for y in x]
+    json_data = {"data": d}
+    save_to_json(json_data=json_data, json_filename="jsons/result.json")
