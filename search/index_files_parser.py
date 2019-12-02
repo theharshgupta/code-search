@@ -1,6 +1,7 @@
 import tokenize
 import pandas as pd
 
+
 def parse_code(file_path: str):
     """Function to extract docstring and function string by tokenizing
     :param file_path: python file that has to be tokenized
@@ -18,8 +19,8 @@ def parse_code(file_path: str):
                 if 'def' in tokens[index_token - 2].line:
                     line_function = tokens[index_token - 2].line
                     line_docstring = token.line
-                    data["function"] = line_function
-                    data["docstring"] = line_docstring
+                    data["function"] = line_function.replace('\n', '').replace('def', '').replace(':', '').strip()
+                    data["docstring"] = line_docstring.replace('\n', '').replace('\"\"\"', '').replace('  ', ' ').strip()
                     result.append(data)
 
                 # if 'def' not in token[index_token-2].line:

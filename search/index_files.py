@@ -1,6 +1,6 @@
 import os
 import time
-from index_files_parser import parse_code
+from search.index_files_parser import parse_code
 import re
 
 
@@ -44,4 +44,4 @@ def re_test(text: str):
         print("not found", e)
 
 
-search('X:/Python/')
+search('/Users/harsh/Desktop/coding/')
