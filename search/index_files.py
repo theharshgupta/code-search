@@ -67,7 +67,8 @@ def re_test(text: str):
 
 
 if __name__ == '__main__':
-    search(root='/Users/harsh/Desktop/work/61a', flags=['corepython', 'Anaconda', 'site-package', 'venv', 'google-cloud-sdk'])
+    search(root='/Users/harsh/Desktop/coding/', flags=['corepython', 'Anaconda', 'scheme', 'site-package', 'venv',
+                                                       'google-cloud-sdk'])
     d = [y for x in data_all for y in x]
     json_data = {"data": d}
     save_to_json(json_data=json_data, json_filename="jsons/result.json")
