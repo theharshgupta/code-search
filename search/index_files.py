@@ -25,7 +25,7 @@ def save_to_json(json_data: dict, json_filename: str):
 
 def search(root, indent=0, flags=None, extension='py'):
     """
-    Hello World!
+    Recursive function to index all the files in the root directory. Appends are the filepaths to list data_all
     :param root: starting directory
     :param indent: for printing in console
     :param flags: words to ignore in the path while indexing
@@ -67,7 +67,7 @@ def re_test(text: str):
 
 
 if __name__ == '__main__':
-    search(root='/Users/harsh/Desktop/coding/', flags=['corepython', 'Anaconda', 'scheme', 'site-package', 'venv',
+    search(root='/Users/harsh/Desktop/', flags=['corepython', 'Anaconda', 'scheme', 'site-package', 'venv',
                                                        'google-cloud-sdk'])
     d = [y for x in data_all for y in x]
     json_data = {"data": d}
